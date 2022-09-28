@@ -37,8 +37,8 @@ module ScoutApm
                 end
               end
 
-              alias_method :call_without_scout_instruments, :call
-              alias_method :call, :call_with_scout_instruments
+              alias_method :call_without_scout_instruments, :call_v
+              alias_method :call_v, :call_with_scout_instruments
             end
           end
         end
@@ -46,7 +46,7 @@ module ScoutApm
     end
 
     module RedisClientInstrumentationPrepend
-      def call(*args, &block)
+      def call_v(*args, &block)
         command = args.first.first rescue "Unknown"
 
         self.class.instrument("Redis", command) do
